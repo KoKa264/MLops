@@ -95,4 +95,10 @@ stages:
     container: nice_wozniak
     timeoutInMinutes: 0
     steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'aml-workspace-connection'
+        scriptType: 'ps'
+        scriptLocation: 'scriptPath'
+        scriptPath: 
     - template: diabetes_regression-publish-model-artifact-template.yml
