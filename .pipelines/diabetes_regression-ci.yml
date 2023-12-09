@@ -2,7 +2,7 @@
 
 resources:
   containers:
-  - container: angry_borg
+  - container: b48083a02883e8f412e7c56f490769841279c99ac16d3ec08f9db74b93bf2658
     image: mcr.microsoft.com/mlops/python:latest
 
 pr: none
@@ -31,7 +31,7 @@ stages:
   jobs:
   - job: "Model_CI_Pipeline"
     displayName: "Model CI Pipeline"
-    container: angry_borg
+    container: b48083a02883e8f412e7c56f490769841279c99ac16d3ec08f9db74b93bf2658
     timeoutInMinutes: 0
     steps:
     - template: code-quality-template.yml
@@ -56,7 +56,7 @@ stages:
   - job: "Get_Pipeline_ID"
     condition: and(succeeded(), eq(coalesce(variables['auto-trigger-training'], 'true'), 'true'))
     displayName: "Get Pipeline ID for execution"
-    container: angry_borg
+    container: b48083a02883e8f412e7c56f490769841279c99ac16d3ec08f9db74b93bf2658
     timeoutInMinutes: 0
     steps:
     - task: AzureCLI@1
@@ -92,7 +92,7 @@ stages:
     dependsOn: "Run_ML_Pipeline"
     condition: always()
     displayName: "Publish artifact if new model was registered"
-    container: angry_borg
+    container: b48083a02883e8f412e7c56f490769841279c99ac16d3ec08f9db74b93bf2658
     timeoutInMinutes: 0
     steps:
     - template: diabetes_regression-publish-model-artifact-template.yml
