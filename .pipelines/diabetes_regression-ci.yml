@@ -48,7 +48,15 @@ stages:
           # Invoke the Python building and publishing a training pipeline
           python -m ml_service.pipelines.diabetes_regression_build_train_pipeline
       displayName: 'Publish Azure Machine Learning Pipeline'
-
+    - task: AzureCLI@2
+  inputs:
+    scriptType: 'ps'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      Write-Host "Debug: Current Directory: $(pwd)"
+      Write-Host "Debug: Files in Directory: $(ls)"
+      # Rest of the PowerShell script
+      
 - stage: 'Trigger_AML_Pipeline'
   displayName: 'Train and evaluate model'
   condition: succeeded()
