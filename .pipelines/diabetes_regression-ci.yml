@@ -43,22 +43,10 @@ stages:
         inlineScript: |
           set -e # fail on error
           export SUBSCRIPTION_ID=$(az account show --query id -o tsv)
-          # Cài đặt các dependencies Node.js
-          npm install
           # Invoke the Python building and publishing a training pipeline
           python -m ml_service.pipelines.diabetes_regression_build_train_pipeline
       displayName: 'Publish Azure Machine Learning Pipeline'
-    - task: AzureCLI@2
-      inputs:
-        scriptType: 'ps'
-        scriptLocation: 'inlineScript'
-        inlineScript: |
-          Write-Host "Debug: Current Directory: $(pwd)"
-          Write-Host "Debug: Files in Directory: $(ls)"
-          Write-Host "Debug: PowerShell Path: $(which powershell)"
-          & "C:\Program Files\PowerShell\7\powershell.exe" -Version
-          # Rest of the PowerShell script
-
+      
 - stage: 'Trigger_AML_Pipeline'
   displayName: 'Train and evaluate model'
   condition: succeeded()
