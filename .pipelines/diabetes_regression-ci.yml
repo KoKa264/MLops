@@ -55,6 +55,8 @@ stages:
         inlineScript: |
           Write-Host "Debug: Current Directory: $(pwd)"
           Write-Host "Debug: Files in Directory: $(ls)"
+          Write-Host "Debug: PowerShell Path: $(which powershell)"
+          & "C:\Program Files\PowerShell\7\powershell.exe" -Version
           # Rest of the PowerShell script
 
 - stage: 'Trigger_AML_Pipeline'
